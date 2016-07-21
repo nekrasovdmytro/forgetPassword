@@ -68,17 +68,14 @@ class SecureController extends Controller
 
 		// if restore form sent
 		if ($request->isMethod('post')) {
-
 			$this->checkCsrfToken($request->get('token'), self::CSRF_AUTH_TOKEN_ID);
 
 			$event = new RestorePasswordSendEmailEvent();
 			$event->setRequest($request);
 			
 			$dispatcher->dispatch('restore.password.send.email.event', $event);
-		}
-		
-		// if hash is set
-		if (null !== $hash) {
+
+		} elseif (null !== $hash) { // if hash is seе
 			$event = new RestorePasswordCheckHashEvent();
 			$event->setRequest($request);
 			$event->setHash($hash);
