@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {% if message is defined %}
+        {{ message }}
+    {% endif %}
+
+    <h1>Restore</h1>
+    <hr/>
+    <form action="{{ path('restore_page') }}" method="post">
+        <input type="hidden" name="token" value="{{ csrf_token('authenticate') }}">
+        <input type="text" name="email" placeholder="please input your email" />
+        <input type="submit" value="Restore" />
+    </form>
+{% endblock %}

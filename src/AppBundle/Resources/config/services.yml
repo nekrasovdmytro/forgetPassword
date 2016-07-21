@@ -1,0 +1,25 @@
+services:
+
+    restore.password.chech.hash:
+          class: AppBundle\Listener\RestorePasswordCheckHashListener
+          arguments: ['@service_container']
+          tags:
+                -  { name: kernel.event_listener, event: restore.password.event, method: onCheckHashEvent }
+
+    restore.password.send.email:
+          class: AppBundle\Listener\RestorePasswordSendEmailListener
+          arguments: ['@service_container']
+          tags:
+                -  { name: kernel.event_listener, event: restore.password.send.email.event, method: onSendEmailToRestorePassword }
+
+    temp.link.generator.to.restore.password:
+              class: AppBundle\TempLinkGenerator\RestoreUserPasswordLinkGenerator
+              calls:
+                  - ['setContainer', ['@service_container']]
+
+    temp.link.generator.to.new.password:
+                  class: AppBundle\TempLinkGenerator\NewPasswordLinkGenerator
+                  calls:
+                      - ['setContainer', ['@service_container']]
+
+
