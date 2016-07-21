@@ -75,7 +75,7 @@ class SecureController extends Controller
 			
 			$dispatcher->dispatch('restore.password.send.email.event', $event);
 
-		} elseif (null !== $hash) { // if hash is seе
+		} elseif (null !== $hash) { // if hash is set
 			$event = new RestorePasswordCheckHashEvent();
 			$event->setRequest($request);
 			$event->setHash($hash);
